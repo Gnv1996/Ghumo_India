@@ -1,6 +1,11 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import bg from "../Assest/bg.jpeg";
+import PlaceScreen from "./PlaceScreen";
+import PopularScreen from "./PopularScreen";
+import PriceList from "./PriceList";
+import CrouselScreen from "./Crousel";
+import Feedback from "./Feedback";
 
 const styles = {
   container: {
@@ -24,18 +29,33 @@ const styles = {
 
 function HomeScreen() {
   return (
-    <div style={styles.container}>
-      <div style={styles.text}>
-        <Typography variant="h4" component="h4" style={{ fontWeight: "bold" }}>
-          Welcome
-        </Typography>
-        <Typography variant="h2" component="h1" style={{ fontWeight: "bold" }}>
-          Ghumo India
-        </Typography>
-        <Typography variant="p" component="p" style={{ fontWeight: "bold" }}>
-          We guide and help you.........
-        </Typography>
+    <div>
+      <div style={styles.container}>
+        <div style={styles.text}>
+          <Typography
+            variant="h4"
+            component="h4"
+            style={{ fontWeight: "bold" }}
+          >
+            Welcome
+          </Typography>
+          <Typography
+            variant="h2"
+            component="h1"
+            style={{ fontWeight: "bold" }}
+          >
+            Ghumo India
+          </Typography>
+          <Typography variant="p" component="p" style={{ fontWeight: "bold" }}>
+            We guide and help you.........
+          </Typography>
+        </div>
       </div>
+      <PlaceScreen />
+      <PopularScreen />
+      <PriceList />
+      <CrouselScreen />
+      <Feedback />
     </div>
   );
 }

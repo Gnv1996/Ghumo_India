@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography"; // Import Typography component
+import Typography from "@mui/material/Typography";
 import sea1 from "../Assest/birla.jpeg";
 import sea2 from "../Assest/qutub-minar.jpeg";
 import sea3 from "../Assest/humayun.jpeg";
@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const ImageWrapper = styled("div")({
   position: "relative",
   width: "100%",
-  height: "400px", // Adjust this height as needed
+  height: "400px", 
   overflow: "hidden",
 });
 
@@ -71,15 +71,14 @@ const Button = styled("button")({
     backgroundColor: "#ddd",
   },
 });
-
+const darkBlue = "#001F3F";
 export default function PopularScreen() {
   return (
     <Box sx={{ flexGrow: 1, marginTop: 10, marginBottom: 10 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Item>
-            {/* Heading and paragraph */}
-            <Typography variant="h2" gutterBottom>
+            <Typography variant="h2" gutterBottom style={{ color: darkBlue }}>
               Popular Destinations
             </Typography>
 

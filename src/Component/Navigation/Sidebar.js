@@ -24,6 +24,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
+import { Link } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function Sidebar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -162,19 +164,24 @@ export default function Sidebar() {
           <List>
             <ListItem button>
               <DashboardIcon sx={{ margin: 1 }} />
-
-              <ListItemText primary="Dashboard" />
+              <Link to="/">
+                <ListItemText primary="Dashboard" />
+              </Link>
             </ListItem>
             <ListItem button>
               <PersonPinIcon sx={{ margin: 1 }} />
-              <ListItemText primary="My Account" />
+              <Link to="/profile">
+                <ListItemText primary="My Account" />
+              </Link>
             </ListItem>
             <Divider />
             <ListItem button sx={{ marginTop: 40 }}>
               <ListItemIcon>
                 <PersonAddIcon />
               </ListItemIcon>
-              <ListItemText primary="Add Record" />
+              <Link to="/record">
+                <ListItemText primary="Add Record" />
+              </Link>
             </ListItem>
             <ListItem button>
               <ListItemIcon>
@@ -199,7 +206,7 @@ export default function Sidebar() {
       >
         <MenuItem onClick={handleMenuClose}>
           <Avatar sx={{ height: 25, width: 25, margin: 0.5 }} />
-          Profile
+          <Link to="profile">Profile</Link>
         </MenuItem>
         <Divider />
 
@@ -211,9 +218,9 @@ export default function Sidebar() {
         </MenuItem>
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <LogoutIcon />
+            <LoginIcon />
           </ListItemIcon>
-          Logout
+          <Link to="/login">Login</Link>
         </MenuItem>
       </Menu>
       <Menu
