@@ -8,81 +8,7 @@ import {
   Grid,
   Box,
 } from "@mui/material";
-
-const ProfileDashboard = ({ name, email, phoneNumber, onSave }) => {
-  const [editedName, setEditedName] = useState(name);
-  const [editedEmail, setEditedEmail] = useState(email);
-  const [editedPhoneNumber, setEditedPhoneNumber] = useState(phoneNumber);
-
-  const handleSave = () => {
-    onSave({
-      name: editedName,
-      email: editedEmail,
-      phoneNumber: editedPhoneNumber,
-    });
-  };
-
-  return (
-    <Container component="main" maxWidth="sm">
-      <Paper
-        elevation={3}
-        sx={{
-          marginTop: 19,
-          marginBottom: 18,
-          padding: 4,
-          borderRadius: 10,
-        }}
-      >
-        <Typography variant="h5" align="center" gutterBottom>
-          Edit Profile
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Name"
-              value={editedName}
-              onChange={(e) => setEditedName(e.target.value)}
-              margin="normal"
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Email"
-              value={editedEmail}
-              onChange={(e) => setEditedEmail(e.target.value)}
-              type="email"
-              margin="normal"
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Phone Number"
-              value={editedPhoneNumber}
-              onChange={(e) => setEditedPhoneNumber(e.target.value)}
-              type="tel"
-              margin="normal"
-              fullWidth
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleSave}
-          sx={{ marginTop: 2 }}
-        >
-          Save Profile
-        </Button>
-      </Paper>
-    </Container>
-  );
-};
+import axios from "axios";
 
 const ProfileScreen = () => {
   const [editMode, setEditMode] = useState(false);
@@ -90,7 +16,7 @@ const ProfileScreen = () => {
   const [email, setEmail] = useState("johndoe@example.com");
   const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
   const [image, setImage] = useState(null);
-  const [imageHover, setImageHover] = useState(false); // State for hover
+  const [imageHover, setImageHover] = useState(false);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -103,11 +29,25 @@ const ProfileScreen = () => {
     }
   };
 
-  const handleSave = (updatedProfile) => {
-    setName(updatedProfile.name);
-    setEmail(updatedProfile.email);
-    setPhoneNumber(updatedProfile.phoneNumber);
-    setEditMode(false);
+  const handleSave = () => {
+    const updatedProfile = {
+      name: name,
+      email: email,
+      phoneNumber: phoneNumber,
+      image: image,
+    };
+
+    axios
+      .put("http://localhost:4500/profile", updatedProfile)
+      .then((response) => {
+        console.log(response.data);
+        alert("Profile updated successfully!");
+        setEditMode(false);
+      })
+      .catch((error) => {
+        console.error("Error updating profile: ", error);
+        alert("Failed to update profile. Please try again.");
+      });
   };
 
   return (
@@ -186,22 +126,36 @@ const ProfileScreen = () => {
               </div>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                Name:
-              </Typography>
-              <Typography variant="body1">{name}</Typography>
+              <TextField
+                label="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                fullWidth
+                variant="outlined"
+                disabled={!editMode}
+              />
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                Email:
-              </Typography>
-              <Typography variant="body1">{email}</Typography>
+              <TextField
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                fullWidth
+                variant="outlined"
+                disabled={!editMode}
+              />
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                Phone Number:
-              </Typography>
-              <Typography variant="body1">{phoneNumber}</Typography>
+              <TextField
+                label="Phone Number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                type="tel"
+                fullWidth
+                variant="outlined"
+                disabled={!editMode}
+              />
             </Grid>
           </Grid>
           {!editMode ? (
@@ -214,14 +168,27 @@ const ProfileScreen = () => {
             >
               Edit Profile
             </Button>
-          ) : null}
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => setEditMode(false)}
+              sx={{ marginTop: 2 }}
+            >
+              Cancel Edit
+            </Button>
+          )}
           {editMode && (
-            <ProfileDashboard
-              name={name}
-              email={email}
-              phoneNumber={phoneNumber}
-              onSave={handleSave}
-            />
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleSave}
+              sx={{ marginTop: 2 }}
+            >
+              Save Profile
+            </Button>
           )}
         </Paper>
       </Container>

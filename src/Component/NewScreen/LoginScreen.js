@@ -8,16 +8,25 @@ import {
   Grid,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    if (username === "admin" && password === "password") {
-    } else {
-      alert("Invalid username or password");
-    }
+    axios
+      .post("http://localhost:4500/signin", {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error logging in: ", error);
+        alert("Invalid username or password");
+      });
   };
 
   return (

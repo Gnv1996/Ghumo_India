@@ -6,6 +6,7 @@ import FooterScreen from "./Component/Screen/FooterScreen";
 import LoginScreen from "./Component/NewScreen/LoginScreen";
 import RegistrationScreen from "./Component/NewScreen/Registration";
 import ProfileScreen from "./Component/NewScreen/ProfileScreen";
+import MessageScreen from "./Component/NewScreen/MessageScreen";
 
 import AddRecord from "./Component/NewScreen/Record";
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/register" element={<RegistrationScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="/message" element={<MessageScreen />} />
       </Routes>
 
       <FooterScreen />

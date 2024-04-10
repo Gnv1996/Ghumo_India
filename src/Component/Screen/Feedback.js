@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Card, CardContent } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import man from "../Assest/man.jpeg";
+import man2 from "../Assest/person.jpg";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import StarRateIcon from "@mui/icons-material/StarRate";
@@ -47,7 +48,7 @@ const clientFeedbacks = [
   },
   {
     clientName: "John Doe",
-    image: man,
+    image: man2,
     feedback:
       "Embark on a joyful journey, where laughter echoes through scenic landscapes, creating unforgettable memories at every turn. Happiness awaits!",
     rating: 4,

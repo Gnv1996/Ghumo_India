@@ -9,6 +9,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const RegistrationScreen = () => {
   const [name, setName] = useState("");
@@ -21,23 +22,26 @@ const RegistrationScreen = () => {
   const [password, setPassword] = useState("");
 
   const handleRegister = () => {
-    if (
-      name &&
-      age &&
-      (documentType || customDocumentType) &&
-      username &&
-      email &&
-      mobileNumber &&
-      password
-    ) {
-      alert(
-        `Registered successfully!\nName: ${name}\nAge: ${age}\nDocument Type: ${
-          documentType || customDocumentType
-        }\nUsername: ${username}\nEmail: ${email}\nMobile Number: ${mobileNumber}\nPassword: ${password}`
-      );
-    } else {
-      alert("Please fill in all required fields.");
-    }
+    const userData = {
+      name: name,
+      age: age,
+      documentType: documentType || customDocumentType,
+      username: username,
+      email: email,
+      mobileNumber: mobileNumber,
+      password: password,
+    };
+
+    axios
+      .post("http://localhost:4500/register", userData)
+      .then((response) => {
+        console.log(response.data);
+        alert("Registered successfully!");
+      })
+      .catch((error) => {
+        console.error("Error registering: ", error);
+        alert("Registration failed. Please try again.");
+      });
   };
 
   return (
@@ -157,7 +161,7 @@ const RegistrationScreen = () => {
           gutterBottom
           sx={{ margin: 2, textAlign: "right" }}
         >
-          <Link to="/login">Already Register?</Link>
+          <Link to="/login">Already Registered? Login here</Link>
         </Typography>
       </Paper>
     </Container>

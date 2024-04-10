@@ -211,9 +211,13 @@ export default function AddRecord() {
     <Box
       sx={{
         height: 500,
-        margin: 20,
+        margin: "auto",
+        marginTop: 15,
+        marginBottom: 10,
         width: "80%",
-
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         "& .actions": {
           color: "text.secondary",
         },
