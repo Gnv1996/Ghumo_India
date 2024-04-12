@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast ,Bounce} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegistrationScreen = () => {
   const [name, setName] = useState("");
@@ -33,14 +35,34 @@ const RegistrationScreen = () => {
     };
 
     axios
-      .post("http://localhost:4500/register", userData)
+      .post("http://localhost:4500/signup", userData)
       .then((response) => {
         console.log(response.data);
-        alert("Registered successfully!");
+        toast.success("You are Successfully Login", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          transition: Bounce,
+        });
       })
       .catch((error) => {
         console.error("Error registering: ", error);
-        alert("Registration failed. Please try again.");
+        toast.success("You are Successfully Login", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          transition: Bounce,
+        });
       });
   };
 
@@ -164,6 +186,7 @@ const RegistrationScreen = () => {
           <Link to="/login">Already Registered? Login here</Link>
         </Typography>
       </Paper>
+      <ToastContainer/>
     </Container>
   );
 };

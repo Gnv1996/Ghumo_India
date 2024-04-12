@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast,Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
@@ -22,10 +24,31 @@ const LoginScreen = () => {
       })
       .then((response) => {
         console.log(response.data);
+        toast.success("You are Successfully Login", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
       })
       .catch((error) => {
         console.error("Error logging in: ", error);
-        alert("Invalid username or password");
+        toast.error("Invalid credential", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+          transition: Bounce,
+        });
       });
   };
 
@@ -79,6 +102,7 @@ const LoginScreen = () => {
           <Link to="/register">New User?</Link>
         </Typography>
       </Paper>
+      <ToastContainer />
     </Container>
   );
 };

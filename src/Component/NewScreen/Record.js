@@ -210,11 +210,11 @@ export default function AddRecord() {
   return (
     <Box
       sx={{
-        height: 500,
-        margin: "auto",
+        // height: 500,
+        // margin: "auto",
         marginTop: 15,
         marginBottom: 10,
-        width: "80%",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

@@ -25,11 +25,14 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
+import { useUser } from "../../auth/ContextApi";
 
 export default function Sidebar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  const { logoutUser } = useUser();
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const open = Boolean(anchorEl);
@@ -91,7 +94,12 @@ export default function Sidebar() {
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Typography component={Link} to='/message' variant="inherit" sx={{ color: 'white', textDecoration: 'none' }}>
+              <Typography
+                component={Link}
+                to="/message"
+                variant="inherit"
+                sx={{ color: "white", textDecoration: "none" }}
+              >
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -165,13 +173,23 @@ export default function Sidebar() {
           <List>
             <ListItem button>
               <DashboardIcon sx={{ margin: 1 }} />
-              <Typography component={Link} to="/" variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+              <Typography
+                component={Link}
+                to="/"
+                variant="inherit"
+                sx={{ textDecoration: "none", color: "inherit" }}
+              >
                 Dashboard
               </Typography>
             </ListItem>
             <ListItem button>
               <PersonPinIcon sx={{ margin: 1 }} />
-              <Typography component={Link} to="/profile" variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+              <Typography
+                component={Link}
+                to="/profile"
+                variant="inherit"
+                sx={{ textDecoration: "none", color: "inherit" }}
+              >
                 My Account
               </Typography>
             </ListItem>
@@ -180,7 +198,12 @@ export default function Sidebar() {
               <ListItemIcon>
                 <PersonAddIcon />
               </ListItemIcon>
-              <Typography component={Link} to="/record" variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+              <Typography
+                component={Link}
+                to="/record"
+                variant="inherit"
+                sx={{ textDecoration: "none", color: "inherit" }}
+              >
                 Add Record
               </Typography>
             </ListItem>
@@ -188,15 +211,23 @@ export default function Sidebar() {
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
-              <Typography variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
-                Settings
+              <Typography
+                component={Link}
+                to="/faq"
+                variant="inherit"
+                sx={{ textDecoration: "none", color: "inherit" }}
+              >
+                FAQ'S
               </Typography>
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={logoutUser}>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <Typography variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+              <Typography
+                variant="inherit"
+                sx={{ textDecoration: "none", color: "inherit" }}
+              >
                 Logout
               </Typography>
             </ListItem>
@@ -211,7 +242,12 @@ export default function Sidebar() {
       >
         <MenuItem onClick={handleMenuClose}>
           <Avatar sx={{ height: 25, width: 25, margin: 0.5 }} />
-          <Typography component={Link} to="profile" variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography
+            component={Link}
+            to="profile"
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
             Profile
           </Typography>
         </MenuItem>
@@ -221,7 +257,10 @@ export default function Sidebar() {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <Typography variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
             Settings
           </Typography>
         </MenuItem>
@@ -229,7 +268,12 @@ export default function Sidebar() {
           <ListItemIcon>
             <LoginIcon />
           </ListItemIcon>
-          <Typography component={Link} to="/login" variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <Typography
+            component={Link}
+            to="/login"
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
             Login
           </Typography>
         </MenuItem>
@@ -251,7 +295,12 @@ export default function Sidebar() {
               <MailIcon />
             </Badge>
           </IconButton>
-          <Typography variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>Messages</Typography>
+          <Typography
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
+            Messages
+          </Typography>
         </MenuItem>
         <MenuItem>
           <IconButton
@@ -263,7 +312,12 @@ export default function Sidebar() {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <Typography variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>Notifications</Typography>
+          <Typography
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
+            Notifications
+          </Typography>
         </MenuItem>
         <MenuItem onClick={handleProfileMenuOpen}>
           <IconButton
@@ -275,7 +329,12 @@ export default function Sidebar() {
           >
             <AccountCircle />
           </IconButton>
-          <Typography variant="inherit" sx={{ textDecoration: 'none', color: 'inherit' }}>Profile</Typography>
+          <Typography
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
+            Profile
+          </Typography>
         </MenuItem>
       </Menu>
     </React.Fragment>

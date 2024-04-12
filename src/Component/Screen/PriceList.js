@@ -35,6 +35,12 @@ const TourPackageCard = ({
           flexDirection: "column",
           height: "100%",
           position: "relative",
+          transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+          "&:hover": {
+            transform: "scale(1.05)", // Scales the card up to 105% of its size on hover
+            boxShadow:
+              "0px 10px 15px -3px rgba(0,0,0,0.1),0px 4px 6px -2px rgba(0,0,0,0.05)", // Adds shadow on hover
+          },
         }}
       >
         {isMiddle && recommended && (
@@ -143,7 +149,11 @@ const TourPackageCard = ({
           fullWidth
           variant="contained"
           color="primary"
-          style={{ backgroundColor: darkBlue, height: "50px" }}
+          sx={{
+            backgroundColor: darkBlue,
+            height: "50px",
+            "&:hover": { backgroundColor: "#003366" },
+          }}
         >
           Book Now
         </Button>
@@ -190,7 +200,7 @@ const PriceList = () => {
       lunch: true,
       dinner: true,
       description:
-        "Discover Delhis charm with iconic landmarks, lively markets, and rejuvenation at a water park, offering diverse experiences for all.",
+        "Discover Delhi's charm with iconic landmarks, lively markets, and rejuvenation at a water park, offering diverse experiences for all.",
       recommended: false,
     },
   ];
