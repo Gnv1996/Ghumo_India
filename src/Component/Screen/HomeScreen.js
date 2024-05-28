@@ -6,6 +6,7 @@ import PopularScreen from "./PopularScreen";
 import PriceList from "./PriceList";
 import CrouselScreen from "./Crousel";
 import Feedback from "./Feedback";
+import MapScreen from "./MapScreen";
 
 const styles = {
   container: {
@@ -55,6 +56,7 @@ function HomeScreen() {
       <PopularScreen />
       <PriceList />
       <CrouselScreen />
+      <MapScreen />
       <Feedback />
     </div>
   );
