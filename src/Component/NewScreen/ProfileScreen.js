@@ -12,8 +12,8 @@ import axios from "axios";
 
 const ProfileScreen = () => {
   const [editMode, setEditMode] = useState(false);
-  const [name, setName] = useState("John Doe");
-  const [email, setEmail] = useState("johndoe@example.com");
+  const [name, setName] = useState("Dr. Bugu Boy");
+  const [email, setEmail] = useState("nici@example.com");
   const [phoneNumber, setPhoneNumber] = useState("123-456-7890");
   const [image, setImage] = useState(null);
   const [imageHover, setImageHover] = useState(false);
