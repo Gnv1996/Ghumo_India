@@ -15,6 +15,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Avatar from "@mui/material/Avatar";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -23,6 +24,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Link } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
 import { useUser } from "../../auth/ContextApi";
 
 export default function Sidebar() {
@@ -41,6 +43,11 @@ export default function Sidebar() {
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -228,6 +235,50 @@ export default function Sidebar() {
         </Drawer>
       </Box>
       <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <Avatar sx={{ height: 25, width: 25, margin: 0.5 }} />
+          <Typography
+            component={Link}
+            to="profile"
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
+            Profile
+          </Typography>
+        </MenuItem>
+        <Divider />
+
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <Typography
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
+            Settings
+          </Typography>
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ListItemIcon>
+            <LoginIcon />
+          </ListItemIcon>
+          <Typography
+            component={Link}
+            to="/login"
+            variant="inherit"
+            sx={{ textDecoration: "none", color: "inherit" }}
+          >
+            Login
+          </Typography>
+        </MenuItem>
+      </Menu>
+      <Menu
         anchorEl={mobileMoreAnchorEl}
         id="primary-search-account-menu-mobile"
         keepMounted
@@ -245,10 +296,12 @@ export default function Sidebar() {
             </Badge>
           </IconButton>
           <Typography
+            component={Link}
+            to="profile"
             variant="inherit"
             sx={{ textDecoration: "none", color: "inherit" }}
           >
-            Messages
+            Profile
           </Typography>
         </MenuItem>
         <MenuItem>
@@ -279,12 +332,10 @@ export default function Sidebar() {
             <AccountCircle />
           </IconButton>
           <Typography
-            component={Link}
-            to="profile"
             variant="inherit"
             sx={{ textDecoration: "none", color: "inherit" }}
           >
-            Profile
+            More
           </Typography>
         </MenuItem>
       </Menu>
