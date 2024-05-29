@@ -292,7 +292,7 @@ export default function Sidebar() {
             color="inherit"
           >
             <Badge badgeContent={4} color="error">
-              <MailIcon />
+              <AccountCircle />
             </Badge>
           </IconButton>
           <Typography

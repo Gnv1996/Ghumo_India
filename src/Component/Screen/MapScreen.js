@@ -18,9 +18,13 @@ const center = {
   lng: 77.1025,
 };
 
+const polylineOptions = {
+  strokeColor: "#0047AB",
+  strokeOpacity: 0.8,
+  strokeWeight: 6,
+};
+
 export default function MapScreen() {
-  const [start, setStart] = useState("");
-  const [destination, setDestination] = useState("");
   const [directions, setDirections] = useState(null);
   const startRef = useRef(null);
   const destinationRef = useRef(null);
@@ -39,9 +43,6 @@ export default function MapScreen() {
       const destinationPlace = destinationRef.current.getPlace();
 
       if (startPlace && destinationPlace) {
-        setStart(startPlace.formatted_address);
-        setDestination(destinationPlace.formatted_address);
-
         const directionsService = new window.google.maps.DirectionsService();
         directionsService.route(
           {
@@ -72,7 +73,7 @@ export default function MapScreen() {
         gutterBottom
         style={{ color: blue }}
       >
-        Beautifull Cities....
+        Beautiful Cities....
       </Typography>
       <div style={{ marginBottom: "20px" }}>
         <div style={{ display: "flex" }}>
@@ -118,7 +119,14 @@ export default function MapScreen() {
         zoom={11}
         center={center}
       >
-        {directions && <DirectionsRenderer directions={directions} />}
+        {directions && (
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: polylineOptions,
+            }}
+          />
+        )}
       </GoogleMap>
     </LoadScript>
   );
