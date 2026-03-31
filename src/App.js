@@ -10,6 +10,10 @@ import MessageScreen from "./Component/NewScreen/MessageScreen";
 import FaqScreen from "./Component/Screen/FaqScreen";
 import { UserProvider } from "../src/auth/ContextApi";
 import AddRecord from "./Component/NewScreen/Record";
+import DelhiBookingScreen from "./Component/Screen/DelhiBookingScreen";
+import PaymentScreen from "./Component/Screen/PaymentScreen";
+import SuccessScreen from "./Component/Screen/SuccessScreen";
+import SystemSettings from "./Component/Screen/SystemSettings";
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/message" element={<MessageScreen />} />
           <Route path="/faq" element={<FaqScreen />} />
+          <Route path="/booking" element={<DelhiBookingScreen />} />
+          <Route path="/payment" element={<PaymentScreen />} />
+          <Route path="/payment-success" element={<SuccessScreen />} />
+          <Route path="/system" element={<SystemSettings />} />
         </Routes>
 
         <FooterScreen />

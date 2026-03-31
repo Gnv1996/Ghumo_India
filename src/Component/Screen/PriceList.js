@@ -1,15 +1,42 @@
 import React from "react";
 import {
+  Box,
   Card,
   CardContent,
   Typography,
   Button,
   Grid,
-  CssBaseline,
   Container,
+  Divider,
+  Stack,
+  Chip,
 } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
+import HotelIcon from "@mui/icons-material/Hotel";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-const darkBlue = "#001F3F";
+
+const COLORS = {
+  primary: "#1E293B", // Navy Slate
+  accent: "#6366F1",  // Indigo
+  recommended: "#F59E0B", // Amber
+  bg: "#F8FAFC",
+  textSecondary: "#64748B"
+};
+
+const FeatureItem = ({ icon, text, included = true }) => (
+  <Stack direction="row" spacing={1.5} alignItems="flex-start" sx={{ mb: 1.5 }}>
+    {included ? (
+      <CheckCircleIcon sx={{ fontSize: 20, color: COLORS.accent }} />
+    ) : (
+      <CancelIcon sx={{ fontSize: 20, color: "#CBD5E1" }} />
+    )}
+    <Typography variant="body2" sx={{ color: included ? COLORS.primary : COLORS.textSecondary, fontWeight: included ? 500 : 400 }}>
+      {text}
+    </Typography>
+  </Stack>
+);
 
 const TourPackageCard = ({
   title,
@@ -22,141 +49,106 @@ const TourPackageCard = ({
   description,
   subtitle,
   recommended,
-  isMiddle,
 }) => {
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card
+        elevation={0}
         sx={{
-          maxWidth: 345,
-          margin: "10px",
-          backgroundColor: "#F5F5F5",
+          borderRadius: "24px",
+          border: recommended ? `2px solid ${COLORS.accent}` : "1px solid #E2E8F0",
+          position: "relative",
+          height: "100%",
           display: "flex",
           flexDirection: "column",
-          height: "100%",
-          position: "relative",
-          transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
           "&:hover": {
-            transform: "scale(1.05)", // Scales the card up to 105% of its size on hover
-            boxShadow:
-              "0px 10px 15px -3px rgba(0,0,0,0.1),0px 4px 6px -2px rgba(0,0,0,0.05)", // Adds shadow on hover
+            transform: "translateY(-10px)",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
           },
+          bgcolor: recommended ? "#fff" : "rgba(255, 255, 255, 0.7)",
         }}
       >
-        {isMiddle && recommended && (
-          <Typography
-            variant="subtitle1"
-            align="center"
-            style={{
+        {recommended && (
+          <Box
+            sx={{
               position: "absolute",
-              top: -25,
-              left: "50%",
-              transform: "translateX(-50%)",
-              backgroundColor: "#2196f3",
-              color: "#ffffff",
-              borderRadius: "4px",
-              padding: "4px 8px",
+              top: 16,
+              right: 16,
             }}
           >
-            Recommended
-          </Typography>
+            <Chip 
+              label="Best Value" 
+              size="small" 
+              sx={{ 
+                bgcolor: COLORS.accent, 
+                color: "#fff", 
+                fontWeight: 800, 
+                fontSize: "0.65rem",
+                textTransform: "uppercase" 
+              }} 
+            />
+          </Box>
         )}
-        <CardContent style={{ flexGrow: 1 }}>
-          <Typography
-            variant="h5"
-            component="h2"
-            align="center"
-            gutterBottom
-            style={{ color: darkBlue, fontWeight: "bold" }}
-          >
+
+        <CardContent sx={{ p: 4, flexGrow: 1 }}>
+          <Typography variant="overline" sx={{ fontWeight: 800, color: COLORS.accent, letterSpacing: 1.5 }}>
             {title}
           </Typography>
-          <Typography
-            variant="h6"
-            component="h6"
-            align="center"
-            gutterBottom
-            style={{ color: darkBlue }}
-          >
-            {subtitle}
-          </Typography>
-          <Typography
-            variant="h4"
-            align="center"
-            gutterBottom
-            style={{ color: darkBlue }}
-          >
+          <Typography variant="h4" sx={{ fontWeight: 900, color: COLORS.primary, mb: 1 }}>
             {price}
           </Typography>
-          <Typography
-            variant="subtitle1"
-            align="center"
-            gutterBottom
-            style={{ color: darkBlue }}
-          >
-            {duration}
+          <Typography variant="body2" sx={{ color: COLORS.textSecondary, mb: 3, minHeight: "40px" }}>
+            {subtitle}
           </Typography>
-          <Typography
-            variant="body1"
-            align="center"
-            paragraph
-            style={{ color: darkBlue }}
-          >
-            <strong>Hotel:</strong> {hotel}
+
+          <Divider sx={{ mb: 3 }} />
+
+          <Stack spacing={2} sx={{ mb: 4 }}>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <AccessTimeIcon sx={{ color: COLORS.textSecondary, fontSize: 18 }} />
+              <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>{duration}</Typography>
+            </Stack>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <HotelIcon sx={{ color: COLORS.textSecondary, fontSize: 18 }} />
+              <Typography variant="body2">{hotel === "Na" ? "No Hotel Included" : hotel}</Typography>
+            </Stack>
+          </Stack>
+
+          <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, textTransform: "uppercase", fontSize: "0.7rem", color: COLORS.textSecondary }}>
+            What's Included
           </Typography>
-          <Typography
-            variant="body1"
-            align="center"
-            paragraph
-            style={{ color: darkBlue }}
-          >
-            <strong>Meals Included:</strong>
-          </Typography>
-          <Typography
-            variant="body2"
-            align="center"
-            paragraph
-            style={{ color: darkBlue }}
-          >
-            Breakfast: {breakfast ? "Yes" : "No"}
-          </Typography>
-          <Typography
-            variant="body2"
-            align="center"
-            paragraph
-            style={{ color: darkBlue }}
-          >
-            Lunch: {lunch ? "Yes" : "No"}
-          </Typography>
-          <Typography
-            variant="body2"
-            align="center"
-            paragraph
-            style={{ color: darkBlue }}
-          >
-            Dinner: {dinner ? "Yes" : "No"}
-          </Typography>
-          <Typography
-            variant="body1"
-            align="center"
-            paragraph
-            style={{ color: darkBlue }}
-          >
+          
+          <FeatureItem text="Daily Breakfast" included={breakfast} />
+          <FeatureItem text="Luxury Lunch" included={lunch} />
+          <FeatureItem text="Gourmet Dinner" included={dinner} />
+          <FeatureItem text="Guided Tours" included={true} />
+
+          <Typography variant="body2" sx={{ mt: 3, color: COLORS.textSecondary, fontStyle: "italic", lineHeight: 1.6 }}>
             {description}
           </Typography>
         </CardContent>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          sx={{
-            backgroundColor: darkBlue,
-            height: "50px",
-            "&:hover": { backgroundColor: "#003366" },
-          }}
-        >
-          Book Now
-        </Button>
+
+        <Box sx={{ p: 4, pt: 0 }}>
+          <Button
+            fullWidth
+            variant="contained"
+            disableElevation
+            sx={{
+              borderRadius: "12px",
+              py: 1.5,
+              textTransform: "none",
+              fontWeight: 700,
+              fontSize: "1rem",
+              bgcolor: recommended ? COLORS.accent : COLORS.primary,
+              "&:hover": {
+                bgcolor: recommended ? "#4F46E5" : "#0F172A",
+              },
+            }}
+          >
+            Start Journey
+          </Button>
+        </Box>
       </Card>
     </Grid>
   );
@@ -166,66 +158,61 @@ const PriceList = () => {
   const packageList = [
     {
       title: "Basic",
-      subtitle: "Adventure Package",
+      subtitle: "Perfect for quick explorers and local sightseeing.",
       price: "₹ 2000",
-      duration: "1 Days",
+      duration: "1 Day",
       hotel: "Na",
       breakfast: false,
       lunch: false,
       dinner: false,
-      description:
-        "Explore iconic landmarks such as the Red Fort, Rashtrapati Bhavan, India Gate, Kirti Mandir, Lotus Temple, Kalkaji Temple, ISKCON Temple, and Jama Masjid.",
-      recommended: true,
+      description: "Includes Red Fort, India Gate, and Lotus Temple visits.",
+      recommended: false,
     },
     {
       title: "Standard",
-      subtitle: "Cultural Package",
+      subtitle: "The full cultural experience for families.",
       price: "₹ 8000",
-      duration: "2 Days / 1 Nights",
+      duration: "2 Days / 1 Night",
       hotel: "3-star accommodations",
       breakfast: true,
       lunch: true,
       dinner: true,
-      description:
-        "Explore India's iconic landmarks: Red Fort, Rashtrapati Bhavan( Inside Tour ), India Gate, Lotus Temple, Jama Masjid, and vibrant markets like Chandni Chowk, Sarojini Nagar, offering diverse experiences.",
+      description: "Inside tours of Rashtrapati Bhavan & Chandni Chowk shopping.",
       recommended: true,
     },
     {
       title: "Premium",
-      subtitle: "Beach Package",
+      subtitle: "Luxury focused retreat with water park access.",
       price: "₹ 12000",
       duration: "4 Days / 3 Nights",
       hotel: "5-star beachfront resort",
       breakfast: true,
       lunch: true,
       dinner: true,
-      description:
-        "Discover Delhi's charm with iconic landmarks, lively markets, and rejuvenation at a water park, offering diverse experiences for all.",
+      description: "Delhi's charm with leisure time at premium water parks.",
       recommended: false,
     },
   ];
 
   return (
-    <Container>
-      <CssBaseline />
-      <Typography
-        variant="h3"
-        align="center"
-        gutterBottom
-        style={{ color: darkBlue }}
-      >
-        Choose Your Tour Package
-      </Typography>
-      <Grid container spacing={2} align="center">
-        {packageList.map((tourPackage, index) => (
-          <TourPackageCard
-            key={index}
-            {...tourPackage}
-            isMiddle={index === Math.floor(packageList.length / 2)}
-          />
-        ))}
-      </Grid>
-    </Container>
+    <Box sx={{ bgcolor: COLORS.bg, minHeight: "100vh", py: 10 }}>
+      <Container maxWidth="lg">
+        <Box sx={{ textAlign: "center", mb: 8 }}>
+          <Typography variant="h2" sx={{ fontWeight: 900, color: COLORS.primary, mb: 2, letterSpacing: "-1px" }}>
+            Ready to Explore?
+          </Typography>
+          <Typography variant="h6" sx={{ color: COLORS.textSecondary, fontWeight: 400, maxWidth: "600px", mx: "auto" }}>
+            Choose the perfect tour package tailored for your next big adventure in the capital.
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4} alignItems="stretch">
+          {packageList.map((tourPackage, index) => (
+            <TourPackageCard key={index} {...tourPackage} />
+          ))}
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

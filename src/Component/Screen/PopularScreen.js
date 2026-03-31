@@ -1,9 +1,16 @@
+
+
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import { 
+  Box, 
+  Grid, 
+  Typography, 
+  Container, 
+  Button, 
+  Paper 
+} from "@mui/material";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import sea1 from "../Assest/birla.jpeg";
 import sea2 from "../Assest/qutub-minar.jpeg";
 import sea3 from "../Assest/humayun.jpeg";
@@ -13,241 +20,162 @@ import sea6 from "../Assest/jantar.jpeg";
 import sea7 from "../Assest/gurudwara.jpeg";
 import sea8 from "../Assest/redFort.jpeg";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.dark,
+// Styled Components for a high-end feel
+const DestinationCard = styled(Paper)(({ theme }) => ({
+  position: "relative",
+  borderRadius: "24px",
+  overflow: "hidden",
+  height: "450px",
+  cursor: "pointer",
+  border: "none",
+  transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+  "&:hover": {
+    transform: "translateY(-10px)",
+    boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+    "& img": {
+      transform: "scale(1.1)",
+    },
+    "& .overlay": {
+      background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%)",
+      backdropFilter: "blur(2px)",
+    },
+    "& .content": {
+      transform: "translateY(0)",
+      opacity: 1,
+    }
+  },
 }));
 
-const ImageWrapper = styled("div")({
-  position: "relative",
-  width: "100%",
-  height: "400px", 
-  overflow: "hidden",
-});
-
-const Image = styled("img")({
+const CardImage = styled("img")({
   width: "100%",
   height: "100%",
   objectFit: "cover",
+  transition: "transform 0.8s ease",
 });
 
-const ImageOverlay = styled("div")({
+const GlassOverlay = styled(Box)({
   position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  inset: 0,
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  opacity: 0,
-  transition: "opacity 0.3s ease",
-  "&:hover": {
-    opacity: 1,
-  },
+  justifyContent: "flex-end",
+  padding: "32px",
+  background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%)",
+  transition: "all 0.4s ease",
 });
 
-const OverlayContent = styled("div")({
-  textAlign: "center",
-  color: "#fff",
-  padding: "20px",
+const ContentWrapper = styled(Box)({
+  transform: "translateY(40px)",
+  opacity: 0.8,
+  transition: "all 0.5s ease",
 });
 
-const Button = styled("button")({
-  backgroundColor: "#fff",
-  color: "#000",
-  padding: "10px 20px",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer",
-  marginTop: "10px",
-  transition: "background-color 0.3s ease",
-  "&:hover": {
-    backgroundColor: "#ddd",
-  },
-});
-const darkBlue = "#001F3F";
+const destinations = [
+  { id: 1, name: "Qutub Minar", img:sea2, desc: "A soaring 73m-high tower of victory built in 1193." },
+  { id: 2, name: "Birla Mandir", img:sea1, desc: "A stunning Hindu temple showcasing intricate 20th-century carvings." },
+  { id: 3, name: "Humayun's Tomb", img: sea3, desc: "A magnificent example of Mughal architecture and lush gardens." },
+  { id: 4, name: "National Gallery", img: sea4, desc: "Houses a vast collection of contemporary and heritage Indian art." },
+  { id: 5, name: "Agrasen ki Baoli", img:sea5, desc: "A historic 60-meter long stepwell with 103 steps." },
+  { id: 6, name: "Jantar Mantar", img:sea6, desc: "An 18th-century astronomical observatory with 13 instruments." },
+  { id: 7, name: "Bangla Sahib", img:sea7, desc: "Prominent Sikh house known for its serene pond and community service." },
+  { id: 8, name: "Red Fort", img: sea8, desc: "UNESCO World Heritage site representing the peak of Mughal creativity." },
+];
+
 export default function PopularScreen() {
   return (
-    <Box sx={{ flexGrow: 1, marginTop: 10, marginBottom: 10 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Item>
-            <Typography variant="h2" gutterBottom style={{ color: darkBlue }}>
-              Popular Destinations
-            </Typography>
+    <Box sx={{ bgcolor: "#F8FAFC", py: 10 }}>
+      <Container maxWidth="xl">
+        {/* Header Section */}
+        <Box sx={{ mb: 8, textAlign: "center" }}>
+          <Typography 
+            variant="h2" 
+            sx={{ 
+              fontWeight: 900, 
+              color: "#0F172A", 
+              mb: 2,
+              fontSize: { xs: "2.5rem", md: "3.75rem" },
+              letterSpacing: "-0.02em"
+            }}
+          >
+            Popular Destinations
+          </Typography>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: "#64748B", 
+              maxWidth: "600px", 
+              mx: "auto",
+              fontSize: "1.1rem" 
+            }}
+          >
+            Discover the heart of India through its most iconic landmarks and hidden gems in New Delhi.
+          </Typography>
+        </Box>
 
-            <Typography variant="body1" align="center">
-              Explore exciting destinations & best places to visit in and around
-              Delhi........
-            </Typography>
-          </Item>
+        <Grid container spacing={4}>
+          {destinations.map((place) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={place.id}>
+              <DestinationCard elevation={0}>
+                <CardImage src={place.img} alt={place.name} />
+                
+                <GlassOverlay className="overlay">
+                  <ContentWrapper className="content">
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 1 }}>
+                      <LocationOnIcon sx={{ color: "#FBBF24", fontSize: "1rem" }} />
+                      <Typography variant="caption" sx={{ color: "#FDE68A", fontWeight: 700, letterSpacing: 1 }}>
+                        NEW DELHI
+                      </Typography>
+                    </Box>
+                    
+                    <Typography 
+                      variant="h4" 
+                      sx={{ 
+                        color: "#fff", 
+                        fontWeight: 800, 
+                        mb: 1.5,
+                        fontSize: "1.5rem" 
+                      }}
+                    >
+                      {place.name}
+                    </Typography>
+
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: "rgba(255,255,255,0.8)", 
+                        mb: 3,
+                        lineHeight: 1.6,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden"
+                      }}
+                    >
+                      {place.desc}
+                    </Typography>
+
+                    <Button 
+                      fullWidth
+                      variant="contained" 
+                      sx={{ 
+                        bgcolor: "#fff", 
+                        color: "#0F172A", 
+                        fontWeight: 700,
+                        textTransform: "none",
+                        borderRadius: "12px",
+                        py: 1.2,
+                        "&:hover": { bgcolor: "#F1F5F9" }
+                      }}
+                    >
+                      Book Your Visit
+                    </Button>
+                  </ContentWrapper>
+                </GlassOverlay>
+              </DestinationCard>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea2} alt="Qutub Minar" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Qutub Minar</Typography>
-                  <Typography variant="body2">
-                    Qutub Minar is a soaring, 73 m-high tower of victory, built
-                    in 1193 by Qutab-ud-din Aibak immediately after the defeat
-                    of Delhi's last Hindu kingdom.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea1} alt="Birla Mandir" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Birla Mandir</Typography>
-                  <Typography variant="body2">
-                    Birla Mandir, also known as the Laxminarayan Temple, is a
-                    stunning Hindu temple in Delhi. Constructed in the 20th
-                    century, it showcases intricate carvings and sculptures,
-                    attracting devotees and tourists alike.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea3} alt="Humayun's Tomb " />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Humayun's Tomb </Typography>
-                  <Typography variant="body2">
-                    The Humayun's Tomb is a magnificent example of Mughal
-                    architecture, constructed in the 16th century. It features a
-                    grand dome, intricate carvings, and lush gardens,
-                    captivating visitors with its timeless beauty.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea4} alt="National Gallery" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">National Gallery</Typography>
-                  <Typography variant="body2">
-                    The National Gallery of Modern Art in Delhi houses a vast
-                    collection of contemporary Indian art, showcasing diverse
-                    styles and mediums, offering a glimpse into the nation's
-                    artistic heritage.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea5} alt="Agrasen ki Baoli" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Agrasen ki Baoli</Typography>
-                  <Typography variant="body2">
-                    Agrasen ki Baoli is a historic stepwell in Delhi, believed
-                    to have been built by the legendary king Agrasen. It
-                    features intricate architecture and remains a popular
-                    tourist attraction in the city.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea6} alt="Jantar Mantar" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Jantar Mantar</Typography>
-                  <Typography variant="body2">
-                    Jantar Mantar is an ancient astronomical observatory in
-                    Delhi, built by Maharaja Jai Singh II in the 18th century.
-                    It comprises 13 architectural astronomy instruments,
-                    reflecting India's scientific prowess.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea7} alt="Bangla Sahib Gurudwara" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Bangla Sahib Gurudwara</Typography>
-                  <Typography variant="body2">
-                    Bangla Sahib Gurudwara, located in Delhi, is a prominent
-                    Sikh house of worship known for its serene atmosphere,
-                    community kitchen serving free meals, and sacred pond
-                    offering spiritual solace.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Item>
-            {/* Image */}
-            <ImageWrapper>
-              <Image src={sea8} alt="Red Fort" />
-              <ImageOverlay>
-                <OverlayContent>
-                  <Typography variant="h3">Red Fort</Typography>
-                  <Typography variant="body2">
-                    The Red Fort, a UNESCO World Heritage Site in Delhi, was
-                    built by Emperor Shah Jahan in the 17th century. It
-                    showcases magnificent Mughal architecture and hosts cultural
-                    events.
-                  </Typography>
-                  <Button>Book Now</Button>
-                </OverlayContent>
-              </ImageOverlay>
-            </ImageWrapper>
-          </Item>
-        </Grid>
-      </Grid>
+      </Container>
     </Box>
   );
 }
